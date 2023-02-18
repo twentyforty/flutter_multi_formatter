@@ -25,9 +25,7 @@ THE SOFTWARE.
 */
 
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 import 'formatter_utils.dart';
 import 'phone_input_enums.dart';
@@ -80,12 +78,22 @@ class PhoneInputFormatter extends TextInputFormatter {
       newValue.text,
       allowAllZeroes: true,
     );
+
+    if (onlyNumbers.startsWith("1")) {
+      onlyNumbers.substring(1);
+    }
+
     String maskedValue;
     if (isErasing) {
       if (newValue.text.isEmpty) {
         _clearCountry();
       }
     }
+
+    if (onlyNumbers.startsWith("1")) {
+      onlyNumbers = onlyNumbers.substring(1);
+    }
+
     if (onlyNumbers.length == 2) {
       /// хак специально для России, со вводом номера с восьмерки
       /// меняем ее на 7
